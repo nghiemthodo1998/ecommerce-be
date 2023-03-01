@@ -1,4 +1,4 @@
-const getProducts = (req, res) => {
+const getOrders = (req, res) => {
   // try {
   //   const data = new Product({ name: "Do day 1" });
   //   res.send(data);
@@ -6,7 +6,7 @@ const getProducts = (req, res) => {
   // } catch (error) {
   //   next(error);
   // }
-  res.send("Products");
+  res.send("Orders");
 };
 
-module.exports = getProducts;
+module.exports = getOrders;

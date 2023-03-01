@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const port = 9000;
+//06
+app.use(express.json());
 
 const apiRoutes = require("./routes/apiRoutes");
 
