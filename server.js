@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 3030;
+const port = 9000;
 
 const apiRoutes = require("./routes/apiRoutes");
 

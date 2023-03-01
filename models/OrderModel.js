@@ -4,7 +4,7 @@ const User = require("./UserModel");
 const orderSchema = mongoose.Schema(
   {
     user: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId, //dat id theo id cua user
       required: true,
       ref: User,
     },
