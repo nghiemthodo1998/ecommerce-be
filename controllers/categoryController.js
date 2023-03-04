@@ -44,4 +44,34 @@ const deleteCategory = async (req, res, next) => {
   }
 };
 
-module.exports = { getCategories, newCategory, deleteCategory };
+const saveAttr = async (req, res, next) => {
+  const { key, val, categoryChoosen } = req.body;
+  if (!key || !val || !categoryChoosen) {
+    return res.status(400).send("All inputs are required");
+  }
+  try {
+    const category = categoryChoosen.split("/")[0];
+    const categoryExists = await Category.findOne({ name: category }).orFail();
+    if (categoryExists.attrs.length > 0) {
+      var keyNotExists = true;
+      categoryExists.attrs.map((item, index) => {
+        if (item.key === key) {
+          keyNotExists === false;
+          var copyAttrValues = [...categoryExists.attrs[index].value];
+          copyAttrValues.push(val);
+          var newAttrValues = [...new Set(copyAttrValues)];
+          categoryExists.attrs[index].value = newAttrValues;
+        }
+      });
+    } else {
+      categoryExists.attrs.push({ key: key, value: [val] });
+    }
+    await categoryExists.save();
+    let cat = await Category.find({}).sort({ name: "asc" });
+    return res.status(201).json({ categoriesUpdated: cat });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { getCategories, newCategory, deleteCategory, saveAttr };
